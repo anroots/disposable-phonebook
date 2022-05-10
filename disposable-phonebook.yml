@@ -1,0 +1,5 @@
+writer:
+  type: JsonWriter
+  args:
+    file: scraped-numbers.json
+

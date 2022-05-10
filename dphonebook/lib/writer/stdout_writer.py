@@ -1,5 +1,5 @@
 from logging import Logger
-from dphonebook.lib.result_writer import ResultWriter
+from dphonebook.lib.writer.result_writer import ResultWriter
 
 
 class StdoutWriter(ResultWriter):

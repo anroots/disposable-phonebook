@@ -7,4 +7,4 @@ class ReceiveSmss(NumberProvider):
 
     def scrape(self) -> List[PhoneNumber]:
 
-        return [PhoneNumber("555")]
+        return [PhoneNumber("555"), PhoneNumber("666")]
