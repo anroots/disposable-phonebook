@@ -36,11 +36,11 @@ def writer_factory(config:dict):
 
     # Temp, later: replace with more dynamic/intelligent loader
     if writer_type == 'StdoutWriter':
-        return StdoutWriter(config['writer']['args'])
+        return StdoutWriter({})
     if writer_type == 'JsonWriter':
         return JsonWriter(config['writer']['args'])
     raise Exception('Unknown writer type')
-    
+
 @main.command()
 @click.option('--config-file', default='disposable-phonebook.yml', help='Config file location')
 def scrape(config_file:str):
