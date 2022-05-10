@@ -1,0 +1,6 @@
+-r requirements.txt
+flake8
+flake8-absolute-import
+pre-commit
+pylint
+pytest
