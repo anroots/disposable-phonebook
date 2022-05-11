@@ -1,9 +1,12 @@
 import datetime
-from dphonebook.lib.numberprovider import NumberProvider, SiteNotAvailable
-from dphonebook.lib.phonenumber import PhoneNumber
-from bs4 import BeautifulSoup
-from typing import List
 import re
+from typing import List
+
+from bs4 import BeautifulSoup
+
+from dphonebook.lib.numberprovider import NumberProvider
+from dphonebook.lib.numberprovider import SiteNotAvailable
+from dphonebook.lib.phonenumber import PhoneNumber
 
 
 class ReceiveSmss(NumberProvider):
@@ -19,7 +22,7 @@ class ReceiveSmss(NumberProvider):
             raise SiteNotAvailable(response.content)
 
         page = BeautifulSoup(response.content, features='html.parser')
-        number_links = page.find_all("h4", class_="number-boxes-itemm-number")
+        number_links = page.find_all('h4', class_='number-boxes-itemm-number')
 
         for number_element in number_links:
             number = number_element.contents.pop()
@@ -32,11 +35,12 @@ class ReceiveSmss(NumberProvider):
                 provider=self.domain(),
                 last_message=self.last_message_time(number)
             )
-    def fuzzy_time_to_datetime(self, fuzzy_time:str)->datetime.datetime:
+
+    def fuzzy_time_to_datetime(self, fuzzy_time: str) -> datetime.datetime:
         time_components = re.search(r'(\d{1,2}) (second|minute|hour|day)s? ago', fuzzy_time)
 
-        time_quantity = int(time_components.group(1)) # 12
-        time_unit = time_components.group(2) # minutes
+        time_quantity = int(time_components.group(1))  # 12
+        time_unit = time_components.group(2)  # minutes
 
         seconds_ago = time_quantity
         if time_unit == 'minute':
@@ -48,7 +52,7 @@ class ReceiveSmss(NumberProvider):
 
         return datetime.datetime.now() - datetime.timedelta(seconds=seconds_ago)
 
-    def last_message_time(self, number:str) -> datetime.datetime:
+    def last_message_time(self, number: str) -> datetime.datetime:
         response = self.session.get(f'https://{self.domain()}/sms/{number.strip("+")}/')
         if not response.ok:
             return None

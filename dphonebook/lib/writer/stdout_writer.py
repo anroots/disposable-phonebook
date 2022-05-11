@@ -1,4 +1,3 @@
-from logging import Logger
 from dphonebook.lib.writer.result_writer import ResultWriter
 
 

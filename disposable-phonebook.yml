@@ -5,3 +5,7 @@ writer:
   #  # File path for the results
   #  file: scraped-numbers.json
   type: StdoutWriter
+
+enabled_providers:
+  #- 'www.receivesms.co'
+  - receive-smss.com

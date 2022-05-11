@@ -1,14 +1,17 @@
 from logging import Logger
+
+import requests
+
 from dphonebook.lib.numberprovider import NumberProvider
 from dphonebook.lib.providers import number_provider_classes
 from dphonebook.lib.writer.result_writer import ResultWriter
-import requests
+
 
 class DPhonebook:
 
-    providers:list[NumberProvider]
+    providers: list[NumberProvider]
 
-    def __init__(self, logger: Logger, config:dict, result_writer:ResultWriter) -> None:
+    def __init__(self, logger: Logger, config: dict, result_writer: ResultWriter) -> None:
         self.providers = []
         self.logger = logger
         self.result_writer = result_writer
@@ -18,9 +21,9 @@ class DPhonebook:
         session = requests.Session()
 
         # TODO: dynamic
-        session.headers.update({'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15'})
+        session.headers.update(
+            {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15'})
 
-        resp = session.get('https://httpbin.org/user-agent')
         return session
 
     def load_providers(self):
@@ -30,15 +33,15 @@ class DPhonebook:
                 session=self.session_factory()
             ))
 
-    def scrape(self, include_providers:list=[]):
+    def scrape(self):
         if not self.providers:
             self.load_providers()
 
         for provider in self.providers:
-            if include_providers and type(provider).__name__ not in include_providers:
+            if self.config.get('enabled_providers') and provider.domain() not in self.config.get('enabled_providers'):
                 continue
+
+            # TODO: threading
             self.result_writer.append(provider.scrape())
 
         self.result_writer.write()
-
-
