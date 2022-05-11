@@ -1,13 +1,19 @@
-from typing import List
+import datetime
 from dphonebook.lib.numberprovider import NumberProvider, SiteNotAvailable
 from dphonebook.lib.phonenumber import PhoneNumber
 from bs4 import BeautifulSoup
+from typing import List
+import re
+
 
 class ReceiveSmss(NumberProvider):
 
+    def domain(self):
+        return 'receive-smss.com'
+
     def scrape(self) -> List[PhoneNumber]:
 
-        response = self.session.get('https://receive-smss.com/')
+        response = self.session.get(f'https://{self.domain()}/')
 
         if not response.ok:
             raise SiteNotAvailable(response.content)
@@ -17,18 +23,35 @@ class ReceiveSmss(NumberProvider):
 
         for number_element in number_links:
             number = number_element.contents.pop()
-            if not self.verify_number_active(number):
+            last_message_time = self.last_message_time(number)
+            if not self.verify_number_active(number, last_message_time):
                 self.logger.info('ReceiveSmss number %s is not active, skipping', number)
                 continue
             yield PhoneNumber(
                 number,
-                provider=self.__class__.__name__,
+                provider=self.domain(),
+                last_message=self.last_message_time(number)
             )
+    def fuzzy_time_to_datetime(self, fuzzy_time:str)->datetime.datetime:
+        time_components = re.search(r'(\d{1,2}) (second|minute|hour|day)s? ago', fuzzy_time)
 
-    def verify_number_active(self, number:str) -> bool:
-        response = self.session.get(f'https://receive-smss.com/sms/{number.strip("+")}/')
+        time_quantity = int(time_components.group(1)) # 12
+        time_unit = time_components.group(2) # minutes
+
+        seconds_ago = time_quantity
+        if time_unit == 'minute':
+            seconds_ago *= 60
+        if time_unit == 'hour':
+            seconds_ago *= 3600
+        if time_unit == 'day':
+            seconds_ago *= 86400
+
+        return datetime.datetime.now() - datetime.timedelta(seconds=seconds_ago)
+
+    def last_message_time(self, number:str) -> datetime.datetime:
+        response = self.session.get(f'https://{self.domain()}/sms/{number.strip("+")}/')
         if not response.ok:
-            return False
+            return None
 
         page = BeautifulSoup(response.content, features='html.parser')
 
@@ -42,12 +65,8 @@ class ReceiveSmss(NumberProvider):
             # Assuming less than a day from latest activity on this number
             # Provider increments fuzzy time units from hours -> days -> ...
             # Unclear how "true" reported message times are
-            time_units = ['second ago', 'seconds ago', 'minute ago', 'minutes ago', 'hour ago', 'hours ago']
-            for time_unit in time_units:
-                if time_unit in latest_time:
-                    return True
+            return self.fuzzy_time_to_datetime(latest_time)
         except Exception as e:
             self.logger.warn(e)
-            return False
 
-        return False
+        return None
