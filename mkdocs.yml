@@ -1,0 +1,5 @@
+site_name: Disposable Phonebook
+repo_name: GitHub
+repo_url: https://github.com/anroots/disposable-phonebook
+theme:
+  name: material

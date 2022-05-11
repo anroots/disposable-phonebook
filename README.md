@@ -13,3 +13,4 @@ dphonebook --help
 ```
 
 - Install [Editorconfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) extension
+- Install [pre-commit hooks](https://pre-commit.com/#install)

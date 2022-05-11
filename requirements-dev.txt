@@ -1,6 +1,8 @@
 -r requirements.txt
 flake8
 flake8-absolute-import
+mkdocs
+mkdocs-material
 pre-commit
 pylint
 pytest
