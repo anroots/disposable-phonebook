@@ -45,17 +45,30 @@ def writer_factory(config: dict):
     raise Exception('Unknown writer type')
 
 
-@main.command()
-@click.option('--config-file', default='disposable-phonebook.yml', help='Config file location')
-def scrape(config_file: str):
+def phonebook_factory(config_file) -> DPhonebook:
     logger = logger_factory()
     config = load_config(config_file, logger)
-    dphonebook = DPhonebook(
+    return DPhonebook(
         logger=logger,
         config=config,
         result_writer=writer_factory(config)
     )
-    dphonebook.scrape()
+
+
+@main.command()
+@click.option('--config-file', default='disposable-phonebook.yml', help='Config file location')
+def list(config_file: str):
+    phonebook = phonebook_factory(config_file)
+    phonebook.load_providers()
+    for provider in phonebook.providers:
+        click.echo(provider.domain())
+
+
+@main.command()
+@click.option('--config-file', default='disposable-phonebook.yml', help='Config file location')
+def scrape(config_file: str):
+    phonebook = phonebook_factory(config_file)
+    phonebook.scrape()
 
 
 if __name__ == '__main__':
