@@ -12,7 +12,8 @@ class NumberProvider:
         self.logger = logger
         self.session = session
 
-    def domain(self) -> str:
+    @staticmethod
+    def domain() -> str:
         pass
 
     def verify_number_active(self, number: str, last_message_time: datetime.datetime = None) -> bool:
@@ -25,7 +26,7 @@ class NumberProvider:
     def last_message_time(self, number: str) -> datetime.datetime:
         pass
 
-    def scrape(self) -> List[PhoneNumber]:
+    def scrape(self, callback: callable) -> List[PhoneNumber]:
         pass
 
 

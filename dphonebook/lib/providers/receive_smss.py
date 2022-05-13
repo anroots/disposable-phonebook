@@ -11,10 +11,11 @@ from dphonebook.lib.phonenumber import PhoneNumber
 
 class ReceiveSmss(NumberProvider):
 
-    def domain(self):
+    @staticmethod
+    def domain() -> str:
         return 'receive-smss.com'
 
-    def scrape(self) -> List[PhoneNumber]:
+    def scrape(self, callback: callable) -> List[PhoneNumber]:
 
         response = self.session.get(f'https://{self.domain()}/')
 
@@ -30,11 +31,11 @@ class ReceiveSmss(NumberProvider):
             if not self.verify_number_active(number, last_message_time):
                 self.logger.info('ReceiveSmss number %s is not active, skipping', number)
                 continue
-            yield PhoneNumber(
+            callback(PhoneNumber(
                 number,
                 provider=self.domain(),
                 last_message=self.last_message_time(number)
-            )
+            ))
 
     def fuzzy_time_to_datetime(self, fuzzy_time: str) -> datetime.datetime:
         time_components = re.search(r'(\d{1,2}) (second|minute|hour|day)s? ago', fuzzy_time)

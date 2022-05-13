@@ -10,10 +10,11 @@ from dphonebook.lib.phonenumber import PhoneNumber
 
 class ReceiveSmsCo(NumberProvider):
 
-    def domain(self):
+    @staticmethod
+    def domain() -> str:
         return 'www.receivesms.co'
 
-    def scrape(self) -> List[PhoneNumber]:
+    def scrape(self, callback: callable) -> List[PhoneNumber]:
 
         response = self.session.get(f'https://{self.domain()}/active-numbers/')
 
@@ -32,11 +33,11 @@ class ReceiveSmsCo(NumberProvider):
                 self.logger.info(
                     '%s number %s is not active, skipping', self.domain(), number)
                 continue
-            yield PhoneNumber(
+            callback([PhoneNumber(
                 number,
                 provider=self.domain(),
                 last_message=self.last_message_time(number)
-            )
+            )])
 
     def last_message_time(self, number: str) -> datetime.datetime:
         return None

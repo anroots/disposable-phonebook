@@ -1,3 +1,4 @@
+import threading
 from logging import Logger
 
 import requests
@@ -9,10 +10,9 @@ from dphonebook.lib.writer.result_writer import ResultWriter
 
 class DPhonebook:
 
-    providers: list[NumberProvider]
+    providers: list[NumberProvider] = []
 
     def __init__(self, logger: Logger, config: dict, result_writer: ResultWriter) -> None:
-        self.providers = []
         self.logger = logger
         self.result_writer = result_writer
         self.config = config
@@ -28,6 +28,9 @@ class DPhonebook:
 
     def load_providers(self):
         for provider in number_provider_classes:
+            if self.config.get('enabled_providers') and provider.domain() not in self.config.get('enabled_providers'):
+                continue
+
             self.providers.append(provider(
                 logger=self.logger,
                 session=self.session_factory()
@@ -37,11 +40,15 @@ class DPhonebook:
         if not self.providers:
             self.load_providers()
 
+        threads = []
         for provider in self.providers:
-            if self.config.get('enabled_providers') and provider.domain() not in self.config.get('enabled_providers'):
-                continue
 
-            # TODO: threading
-            self.result_writer.append(provider.scrape())
+            thread = threading.Thread(target=provider.scrape, args=[self.result_writer.append])
+            thread.start()
+            threads.append(thread)
+
+        # Wait for all provider threads to complete
+        for thread in threads:
+            thread.join()
 
         self.result_writer.write()

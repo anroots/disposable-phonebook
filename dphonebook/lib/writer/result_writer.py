@@ -8,8 +8,8 @@ class ResultWriter:
     def __init__(self, args: dict) -> None:
         self.args = args
 
-    def append(self, numbers: list[PhoneNumber]):
-        self.results += numbers
+    def append(self, number: PhoneNumber):
+        self.results.append(number)
 
     def write(self):
         pass
