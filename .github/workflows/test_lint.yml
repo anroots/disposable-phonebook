@@ -1,0 +1,16 @@
+name: Run unit tests and static linting
+on: [push, pull_request]
+
+jobs:
+  unittests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.yml
+
+      - name: Run tests
+        run: python3 -m unittest discover
