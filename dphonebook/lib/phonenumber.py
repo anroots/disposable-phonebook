@@ -34,4 +34,6 @@ class PhoneNumber():
 
 class PhoneNumberJsonEncoder(json.JSONEncoder):
     def default(self, o):
+        if o.__class__.__name__ == 'datetime':
+            return o.isoformat()
         return o.__dict__

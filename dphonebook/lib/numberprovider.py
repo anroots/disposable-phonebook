@@ -1,6 +1,7 @@
 import datetime
 from logging import Logger
 from typing import List
+from typing import Optional
 
 import requests
 
@@ -23,7 +24,7 @@ class NumberProvider:
 
         return False
 
-    def last_message_time(self, number: str) -> datetime.datetime:
+    def last_message_time(self, number: str) -> Optional[datetime.datetime]:
         pass
 
     def scrape(self, callback: callable) -> List[PhoneNumber]:

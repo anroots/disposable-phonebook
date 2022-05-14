@@ -1,6 +1,7 @@
 import datetime
 import re
 from typing import List
+from typing import Optional
 
 from bs4 import BeautifulSoup
 from bs4 import PageElement
@@ -69,7 +70,7 @@ class ReceiveSmsCo(NumberProvider):
                 last_message=last_message_time
             ))
 
-    def last_message_time(self, number: str, link: str = None) -> datetime.datetime:
+    def last_message_time(self, number: str, link: str = None) -> Optional[datetime.datetime]:
         """Get time when last message was sent to this number
 
         Args:
@@ -88,9 +89,10 @@ class ReceiveSmsCo(NumberProvider):
 
         return self.fuzzy_time_to_datetime(timestamp_cell.contents.pop())
 
-    def fuzzy_time_to_datetime(self, fuzzy_time: str) -> datetime.datetime:
+    def fuzzy_time_to_datetime(self, fuzzy_time: str) -> Optional[datetime.datetime]:
         time_components = re.search(r'(\d{1,2}) (sec|seconds|min|minute|hour|day|month)s? ago', fuzzy_time)
-
+        if not time_components:
+            return None
         time_quantity = int(time_components.group(1))  # 12
         time_unit = time_components.group(2)  # minutes
 

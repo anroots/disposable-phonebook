@@ -1,6 +1,7 @@
 import datetime
 import re
 from typing import List
+from typing import Optional
 
 from bs4 import BeautifulSoup
 
@@ -53,7 +54,7 @@ class ReceiveSmss(NumberProvider):
 
         return datetime.datetime.now() - datetime.timedelta(seconds=seconds_ago)
 
-    def last_message_time(self, number: str) -> datetime.datetime:
+    def last_message_time(self, number: str) -> Optional[datetime.datetime]:
         response = self.session.get(f'https://{self.domain()}/sms/{number.strip("+")}/')
         if not response.ok:
             return None
