@@ -34,7 +34,7 @@ class ReceiveSmss(NumberProvider):
             callback(PhoneNumber(
                 number,
                 provider=self.domain(),
-                last_message=self.last_message_time(number)
+                last_message=last_message_time
             ))
 
     def fuzzy_time_to_datetime(self, fuzzy_time: str) -> datetime.datetime:
@@ -65,7 +65,7 @@ class ReceiveSmss(NumberProvider):
             latest_message = page.find('table', class_='wrptable').find('tbody').find('tr')
 
             # Fuzzy time ("43 minutes ago") on the 2nd column
-            latest_time = latest_message.find_all('td')[1].find('span').contents.pop()
+            latest_time = latest_message.find_all('td')[2].find('span').contents.pop()
 
             # Assuming less than a day from latest activity on this number
             # Provider increments fuzzy time units from hours -> days -> ...

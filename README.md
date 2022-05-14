@@ -1,5 +1,16 @@
 # disposable-phonebook
 
+Collect "disposable" phone numbers from various internet sites that offer
+"receive free SMS to an anonymous number" functionality.
+
+```bash
+$ dphonebook scrape
+[{"number": "+16462879071", "area": "New York", "provider": "receive-smss.com", "last_message": 1652437175, "last_checked": 1652438795},
+{"number": "+16466623058", "area": "New York", "provider": "receive-smss.com", "last_message": 1652437776, "last_checked": 1652438796}]
+```
+
+
+
 ## Development
 
 Requires Python 3.10

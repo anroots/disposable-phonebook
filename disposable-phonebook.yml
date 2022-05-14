@@ -7,5 +7,5 @@ writer:
   type: StdoutWriter
 
 enabled_providers:
-  #- 'www.receivesms.co'
-  - receive-smss.com
+  - 'www.receivesms.co'
+  #- receive-smss.com
