@@ -9,15 +9,21 @@ $ dphonebook scrape
 {"number": "+16466623058", "area": "New York", "provider": "receive-smss.com", "last_message": 1652437776, "last_checked": 1652438796}]
 ```
 
-## Intended use
-
 Intended use-case: for service providers who require a phone number to be associated with a user account,
 and want to filter out (blocklist) fake numbers.
 
-## PII considerations
-
 The phone numbers scraped are publicly listed and not associated with individuals.
 No PII is collected.
+
+## Quickstart
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip install --editable .
+dphonebook scrape
+```
 
 ## Development
 
