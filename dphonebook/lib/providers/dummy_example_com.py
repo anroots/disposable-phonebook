@@ -7,7 +7,9 @@ from dphonebook.lib.phonenumber import PhoneNumber
 
 
 class DummyExampleCom(NumberProvider):
-
+    """
+    Sample provider that returns dummy values
+    """
     @staticmethod
     def domain() -> str:
         return 'dummy.example.com'

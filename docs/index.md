@@ -5,12 +5,7 @@ Scraper for collecting "disposable phone numbers" - phone numbers that are made 
 ## Quickstart
 
 ``` bash
-git clone git@github.com:anroots/disposable-phonebook.git
-cd disposable-phonebook
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements-dev.txt
-pip install --editable .
+pip3 install git+https://github.com/anroots/disposable-phonebook.git
 dphonebook --help
 dphonebook scan
 cat scraped-numbers.json

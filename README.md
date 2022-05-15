@@ -18,10 +18,7 @@ No PII is collected.
 ## Quickstart
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-pip install --editable .
+pip3 install git+https://github.com/anroots/disposable-phonebook.git
 dphonebook scrape
 ```
 

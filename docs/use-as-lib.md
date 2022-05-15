@@ -2,17 +2,16 @@
 
 You can use Disposable Phonebook as a Python library in your own code.
 
-```bash
-$ pip3 install git+https://github.com/anroots/disposable-phonebook.git
-```
-
-``` python
+``` python title="my_scraper.py"
 import logging
 from dphonebook.phonebook import Phonebook
 from dphonebook.lib.writer.result_writer import ResultWriter
 
 
 class MyCustomWriter(ResultWriter):
+    """
+    Implement a custom ResultWriter class to handle results
+    """
 
     def write(self):
         """
@@ -36,4 +35,12 @@ phonebook = Phonebook(
 )
 
 phonebook.scrape()
+```
+
+
+```bash
+$ pip3 install git+https://github.com/anroots/disposable-phonebook.git
+$ python3 my_scraper.py
+{"number": "+37255585858", "area": "Estonia", "provider": "dummy.example.com", "last_message": 1652610267, "last_checked": 1652610267}
+{"number": "+37255000000", "area": "Estonia", "provider": "dummy.example.com", "last_message": 1652610267, "last_checked": 1652610267}
 ```
