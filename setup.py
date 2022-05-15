@@ -2,7 +2,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 setup(
-    name='disposable-phonebook',
+    name='dphonebook',
     description='Scraper for disposable phone number services',
     long_description=open('README.md').read(),
     url='https://github.com/anroots/disposable-phonebook',
@@ -17,7 +17,7 @@ setup(
     ],
     setup_requires='setuptools',
     license='Apache 2.0',
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     version='0.1.0',
     install_requires=[
