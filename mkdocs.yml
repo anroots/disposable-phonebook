@@ -3,3 +3,14 @@ repo_name: GitHub
 repo_url: https://github.com/anroots/disposable-phonebook
 theme:
   name: material
+nav:
+ - Home: index.md
+ - Use as a library: use-as-lib.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
