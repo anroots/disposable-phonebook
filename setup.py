@@ -12,8 +12,14 @@ setup(
     },
     classifiers=[
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3',
+        'Development Status :: 2 - Pre-Alpha',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
+        'Topic :: Communications :: Telephony'
     ],
     setup_requires='setuptools',
     license='Apache 2.0',
@@ -22,6 +28,8 @@ setup(
         'dphonebook': ['disposable-phonebook.yml']
     },
     version='0.1.0',
+    author='Ando Roots',
+    author_email='ando@sqroot.eu',
     install_requires=[
         'requests',
         'click',

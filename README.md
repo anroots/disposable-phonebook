@@ -12,8 +12,8 @@ $ dphonebook scrape
 ## Quickstart
 
 ```bash
-pip3 install git+https://github.com/anroots/disposable-phonebook.git
-dphonebook scrape
+$ pip3 install disposable-phonebook
+$ dphonebook scrape
 ```
 
 ## Development

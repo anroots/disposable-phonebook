@@ -3,10 +3,12 @@
 Disposable Phonebook is a scraper for collecting "disposable phone numbers" -
 phone numbers that are made available for anonymous users online, for free, for receiving SMS to.
 
+_Project status: pre-alpha, in development. Not suited for production use._
+
 ## Quickstart
 
 ``` bash
-$ pip3 install git+https://github.com/anroots/disposable-phonebook.git
+$ pip3 install disposable-phonebook
 $ dphonebook --help
 $ dphonebook scan
 $ cat scraped-numbers.json
