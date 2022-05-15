@@ -8,4 +8,4 @@ writer:
 
 enabled_providers:
   - 'www.receivesms.co'
-  #- receive-smss.com
+  - receive-smss.com
