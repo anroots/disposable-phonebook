@@ -18,7 +18,9 @@ setup(
     setup_requires='setuptools',
     license='Apache 2.0',
     packages=find_packages(exclude=['tests*']),
-    include_package_data=True,
+    package_data={
+        'disposable-phonebook': ['disposable-phonebook.yml']
+    },
     version='0.1.0',
     install_requires=[
         'requests',

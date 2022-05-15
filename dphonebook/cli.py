@@ -1,5 +1,6 @@
 import logging
 import sys
+from pathlib import Path
 
 import click
 import yaml
@@ -26,12 +27,16 @@ def logger_factory():
 
 
 def load_config(config_file: str, logger: logging.Logger):
-    with open(config_file, 'r') as stream:
-        try:
+
+    try:
+        with open(config_file, 'r') as stream:
             return yaml.safe_load(stream)
-        except yaml.YAMLError as exc:
-            logging.error('Unable to load YAML config file %s: %s', config_file, exc)
-            raise exc
+    except yaml.YAMLError as exc:
+        logging.error('Unable to load YAML config file %s: %s', config_file, exc)
+        sys.exit(1)
+    except FileNotFoundError:
+        logging.error('Unable to find config file %s', config_file)
+        sys.exit(1)
 
 
 def writer_factory(config: dict):
@@ -56,7 +61,7 @@ def phonebook_factory(config_file) -> Phonebook:
 
 
 @main.command()
-@click.option('--config-file', default='disposable-phonebook.yml', help='Config file location')
+@click.option('--config-file', default=Path.joinpath(Path(__file__).parent.absolute(), 'disposable-phonebook.yml'), help='Config file location')
 def list(config_file: str):
     phonebook = phonebook_factory(config_file)
     phonebook.load_providers()
@@ -65,7 +70,7 @@ def list(config_file: str):
 
 
 @main.command()
-@click.option('--config-file', default='disposable-phonebook.yml', help='Config file location')
+@click.option('--config-file', default=Path.joinpath(Path(__file__).parent.absolute(), 'disposable-phonebook.yml'), help='Config file location')
 def scrape(config_file: str):
     phonebook = phonebook_factory(config_file)
     phonebook.scrape()
