@@ -3,17 +3,30 @@ from setuptools import setup
 
 setup(
     name='Disposable phonebook',
-    packages=find_packages(),
+    description='Scraper for disposable phone number services',
+    long_description=open('README.md').read(),
+    url='https://github.com/anroots/disposable-phonebook',
+    project_urls={
+        'Documentation': 'https://anroots.github.io/disposable-phonebook/',
+        'Source Code': 'https://github.com/anroots/disposable-phonebook'
+    },
+    classifiers=[
+        'Programming Language :: Python :: 3.10',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: OS Independent',
+    ],
+    setup_requires='setuptools',
+    license='Apache 2.0',
+    packages=find_packages(exclude=['tests']),
     include_package_data=True,
     version='0.1.0',
-    py_modules=['dphonebook.cli'],
     install_requires=[
         'requests',
         'click',
         'setuptools',
         'beautifulsoup4',
-        'phonenumbers'
-
+        'phonenumbers',
+        'pyyaml'
     ],
     entry_points={
         'console_scripts': [

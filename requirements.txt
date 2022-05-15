@@ -1,5 +1,6 @@
-requests
-click
-setuptools
 beautifulsoup4
+click
 phonenumbers
+pyyaml
+requests
+setuptools
