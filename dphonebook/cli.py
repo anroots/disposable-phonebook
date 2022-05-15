@@ -4,9 +4,9 @@ import sys
 import click
 import yaml
 
-from dphonebook.dphonebook import DPhonebook
 from dphonebook.lib.writer.json_writer import JsonWriter
 from dphonebook.lib.writer.stdout_writer import StdoutWriter
+from dphonebook.phonebook import Phonebook
 
 
 @click.group()
@@ -45,10 +45,10 @@ def writer_factory(config: dict):
     raise Exception('Unknown writer type')
 
 
-def phonebook_factory(config_file) -> DPhonebook:
+def phonebook_factory(config_file) -> Phonebook:
     logger = logger_factory()
     config = load_config(config_file, logger)
-    return DPhonebook(
+    return Phonebook(
         logger=logger,
         config=config,
         result_writer=writer_factory(config)

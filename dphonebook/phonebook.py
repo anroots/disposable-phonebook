@@ -8,7 +8,7 @@ from dphonebook.lib.providers import number_provider_classes
 from dphonebook.lib.writer.result_writer import ResultWriter
 
 
-class DPhonebook:
+class Phonebook:
 
     providers: list[NumberProvider] = []
 
