@@ -19,7 +19,7 @@ def logger_factory():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     streamHandler = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     streamHandler.setFormatter(formatter)
     streamHandler.setLevel(logging.INFO)
     logger.addHandler(streamHandler)

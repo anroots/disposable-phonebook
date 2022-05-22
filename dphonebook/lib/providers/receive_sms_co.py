@@ -1,5 +1,4 @@
 import datetime
-import re
 from typing import List
 from typing import Optional
 
@@ -88,22 +87,3 @@ class ReceiveSmsCo(NumberProvider):
         timestamp_cell = message_row.find_all('div', class_='mobile_hide')[1]
 
         return self.fuzzy_time_to_datetime(timestamp_cell.contents.pop())
-
-    def fuzzy_time_to_datetime(self, fuzzy_time: str) -> Optional[datetime.datetime]:
-        time_components = re.search(r'(\d{1,2}) (sec|seconds|min|minute|hour|day|month)s? ago', fuzzy_time)
-        if not time_components:
-            return None
-        time_quantity = int(time_components.group(1))  # 12
-        time_unit = time_components.group(2)  # minutes
-
-        seconds_ago = time_quantity
-        if time_unit in ['min', 'minute']:
-            seconds_ago *= 60
-        if time_unit == 'hour':
-            seconds_ago *= 3600
-        if time_unit == 'day':
-            seconds_ago *= 86400
-        if time_unit == 'month':
-            seconds_ago *= 2629800
-
-        return datetime.datetime.now() - datetime.timedelta(seconds=seconds_ago)

@@ -1,5 +1,4 @@
 import datetime
-import re
 from typing import List
 from typing import Optional
 
@@ -37,22 +36,6 @@ class ReceiveSmss(NumberProvider):
                 provider=self.domain(),
                 last_message=last_message_time
             ))
-
-    def fuzzy_time_to_datetime(self, fuzzy_time: str) -> datetime.datetime:
-        time_components = re.search(r'(\d{1,2}) (second|minute|hour|day)s? ago', fuzzy_time)
-
-        time_quantity = int(time_components.group(1))  # 12
-        time_unit = time_components.group(2)  # minutes
-
-        seconds_ago = time_quantity
-        if time_unit == 'minute':
-            seconds_ago *= 60
-        if time_unit == 'hour':
-            seconds_ago *= 3600
-        if time_unit == 'day':
-            seconds_ago *= 86400
-
-        return datetime.datetime.now() - datetime.timedelta(seconds=seconds_ago)
 
     def last_message_time(self, number: str) -> Optional[datetime.datetime]:
         response = self.session.get(f'https://{self.domain()}/sms/{number.strip("+")}/')

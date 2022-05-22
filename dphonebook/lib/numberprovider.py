@@ -1,4 +1,5 @@
 import datetime
+import re
 from logging import Logger
 from typing import List
 from typing import Optional
@@ -30,6 +31,33 @@ class NumberProvider:
     def scrape(self, callback: callable) -> List[PhoneNumber]:
         pass
 
+    def fuzzy_time_to_datetime(self, fuzzy_time: str) -> Optional[datetime.datetime]:
+        time_components = re.search(r'(\d{1,2}) (sec|second|seconds|min|minute|hour|h|day|month)s? ago', fuzzy_time)
+        if not time_components:
+            return None
+        time_quantity = int(time_components.group(1))  # 12
+        time_unit = time_components.group(2)  # minutes
 
-class SiteNotAvailable(Exception):
+        seconds_ago = time_quantity
+        if time_unit in ['min', 'minute']:
+            seconds_ago *= 60
+        if time_unit in ['hour', 'h']:
+            seconds_ago *= 3600
+        if time_unit == 'day':
+            seconds_ago *= 86400
+        if time_unit == 'month':
+            seconds_ago *= 2629800
+
+        return datetime.datetime.now() - datetime.timedelta(seconds=seconds_ago)
+
+
+class ScrapeTargetException(Exception):
+    pass
+
+
+class SiteNotAvailable(ScrapeTargetException):
+    pass
+
+
+class RateLimitReached(ScrapeTargetException):
     pass

@@ -7,5 +7,6 @@ writer:
   type: StdoutWriter
 
 enabled_providers:
-  - 'www.receivesms.co'
+  - www.receivesms.co
   - receive-smss.com
+  - receive-sms-online.info

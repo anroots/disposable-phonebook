@@ -8,6 +8,7 @@ nav:
  - Concepts: concepts.md
  - Use from CLI: use-from-cli.md
  - Use as a library: use-as-lib.md
+ - Providers: providers.md
 
 markdown_extensions:
   - pymdownx.highlight:
