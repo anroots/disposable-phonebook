@@ -11,6 +11,7 @@ from dphonebook.lib.writer.result_writer import ResultWriter
 class Phonebook:
 
     providers: list[NumberProvider] = []
+    threads: list[threading.Thread] = []
 
     def __init__(self, logger: Logger, config: dict, result_writer: ResultWriter) -> None:
         self.logger = logger
@@ -40,15 +41,14 @@ class Phonebook:
         if not self.providers:
             self.load_providers()
 
-        threads = []
         for provider in self.providers:
 
             thread = threading.Thread(target=provider.scrape, args=[self.result_writer.append])
             thread.start()
-            threads.append(thread)
+            self.threads.append(thread)
 
         # Wait for all provider threads to complete
-        for thread in threads:
+        for thread in self.threads:
             thread.join()
 
         self.result_writer.write()

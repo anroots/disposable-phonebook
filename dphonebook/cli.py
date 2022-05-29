@@ -5,6 +5,7 @@ from pathlib import Path
 import click
 import yaml
 
+from dphonebook.lib.progress import Progress
 from dphonebook.lib.writer.json_writer import JsonWriter
 from dphonebook.lib.writer.stdout_writer import StdoutWriter
 from dphonebook.phonebook import Phonebook
@@ -73,6 +74,10 @@ def list(config_file: str):
 @click.option('--config-file', default=Path.joinpath(Path(__file__).parent.absolute(), 'disposable-phonebook.yml'), help='Config file location')
 def scrape(config_file: str):
     phonebook = phonebook_factory(config_file)
+
+    progress = Progress(phonebook)
+    progress.monitor()
+
     phonebook.scrape()
 
 

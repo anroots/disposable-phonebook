@@ -10,6 +10,11 @@ from dphonebook.lib.phonenumber import PhoneNumber
 
 
 class NumberProvider:
+
+    # For progress % reporting
+    progress_total: int = 0
+    progress_current: int = 0
+
     def __init__(self, logger: Logger, session: requests.Session) -> None:
         self.logger = logger
         self.session = session
@@ -17,6 +22,13 @@ class NumberProvider:
     @staticmethod
     def domain() -> str:
         pass
+
+    def progress(self) -> float:
+        if not self.progress_total or not self.progress_current:
+            return 0.
+        if self.progress_current > self.progress_total:
+            return 100
+        return round(self.progress_current * 100 / self.progress_total, 2)
 
     def verify_number_active(self, number: str, last_message_time: datetime.datetime = None) -> bool:
         # Number is active if last message was within one day

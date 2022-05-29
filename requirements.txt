@@ -4,3 +4,4 @@ phonenumbers
 pyyaml
 requests
 setuptools
+tqdm

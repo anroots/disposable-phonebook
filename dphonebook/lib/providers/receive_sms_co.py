@@ -49,7 +49,10 @@ class ReceiveSmsCo(NumberProvider):
         page = BeautifulSoup(response.content, features='html.parser')
         number_rows = page.find('table', class_='table-hover').find_all('tr')
 
+        self.progress_total = len(number_rows) - 1
+
         for number_row in number_rows:
+            self.progress_current += 1
 
             # Skip header row in table
             if not self.is_number_row(number_row):
