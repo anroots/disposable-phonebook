@@ -74,6 +74,7 @@ def list(config_file: str):
 @click.option('--config-file', default=Path.joinpath(Path(__file__).parent.absolute(), 'disposable-phonebook.yml'), help='Config file location')
 def scrape(config_file: str):
     phonebook = phonebook_factory(config_file)
+    phonebook.load_providers()
 
     progress = Progress(phonebook)
     progress.monitor()

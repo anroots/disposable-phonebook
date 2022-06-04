@@ -89,6 +89,9 @@ class ReceiveSmsOnlineInfo(NumberProvider):
     def last_message_time(self, number: str, number_uri: str) -> Optional[datetime.datetime]:
         ajax_url = self.get_ajax_url(number, number_uri)
 
+        if not ajax_url:
+            return None
+
         # XMLHttpRequest header mandatory, server fails response if not present
         response = self.session.get(ajax_url, headers={'x-requested-with': 'XMLHttpRequest'})
 

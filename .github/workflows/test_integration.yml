@@ -1,0 +1,23 @@
+name: Run integration tests
+on:
+  schedule:
+    - '5 5 * * *'
+  push:
+
+jobs:
+  unittests:
+    name: Run integration tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pip install --editable .
+
+      - name: Run the main program
+        run: ./venv/bin/dphonebook list
