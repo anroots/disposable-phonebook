@@ -2,7 +2,6 @@ name: Run integration tests
 on:
   schedule:
     - '5 5 * * *'
-  push:
 
 jobs:
   unittests:
@@ -12,6 +11,10 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
 
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
       - name: Install dependencies
         run: |
           python3 -m venv venv
@@ -20,4 +23,4 @@ jobs:
           pip install --editable .
 
       - name: Run the main program
-        run: ./venv/bin/dphonebook list
+        run: ./venv/bin/dphonebook scrape
