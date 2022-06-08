@@ -25,7 +25,11 @@ class ReceiveSmss(NumberProvider):
         page = BeautifulSoup(response.content, features='html.parser')
         number_links = page.find_all('h4', class_='number-boxes-itemm-number')
 
+        self.progress_total = len(number_links) - 1
+
         for number_element in number_links:
+            self.progress_current += 1
+
             number = number_element.contents.pop()
             last_message_time = self.last_message_time(number)
             if not self.verify_number_active(number, last_message_time):

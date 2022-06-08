@@ -22,6 +22,9 @@ class Progress:
             total += provider.progress()
         return round(total / self.providers_count, 2)
 
+    def close(self):
+        self.progress_bar.close()
+
     def print(self):
         previous_progress = 0
         while True:
@@ -35,5 +38,5 @@ class Progress:
 
     def monitor(self):
         self.progress_bar = tqdm(total=100, mininterval=0.1)
-        thread = threading.Thread(target=self.print)
+        thread = threading.Thread(target=self.print, name='thread-progress')
         thread.start()

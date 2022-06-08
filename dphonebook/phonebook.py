@@ -43,7 +43,11 @@ class Phonebook:
 
         for provider in self.providers:
 
-            thread = threading.Thread(target=provider.scrape, args=[self.result_writer.append])
+            thread = threading.Thread(
+                target=provider.scrape,
+                args=[self.result_writer.append],
+                name=f'thread-{provider.domain()}'
+            )
             thread.start()
             self.threads.append(thread)
 

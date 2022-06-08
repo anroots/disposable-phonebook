@@ -34,7 +34,11 @@ class ReceiveSmsOnlineInfo(NumberProvider):
         page = BeautifulSoup(response.content, features='html.parser')
         number_cells = page.find('div', class_='Table').find_all('div', class_='Cell')
 
+        self.progress_total = len(number_cells) - 1
+
         for number_cell in number_cells:
+            self.progress_current += 1
+
             number_link = number_cell.find('a')
             number = number_link.contents[1].strip()
             number_uri = number_link.attrs['href']

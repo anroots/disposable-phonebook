@@ -80,6 +80,7 @@ def scrape(config_file: str):
     progress.monitor()
 
     phonebook.scrape()
+    progress.close()
 
 
 if __name__ == '__main__':

@@ -23,4 +23,4 @@ jobs:
           pip install --editable .
 
       - name: Run the main program
-        run: ./venv/bin/dphonebook scrape
+        run: ./venv/bin/dphonebook scrape --config-file=tests/disposable-phonebook.integration.yml
