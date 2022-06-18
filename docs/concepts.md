@@ -15,3 +15,4 @@ by classes under `dphonebook.lib.writer`.
 
 - `StdoutWriter` -> print output to stdout console
 - `JsonWriter` -> write output as JSON into a file. This output file can be fed into other tooling as data input.
+- `WebhookWriter` -> POST results (in batches) to a HTTP endpoint

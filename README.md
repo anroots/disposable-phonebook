@@ -9,12 +9,22 @@ $ dphonebook scrape
 {"number": "+16466623058", "area": "New York", "provider": "receive-smss.com", "last_message": 1652437776, "last_checked": 1652438796}]
 ```
 
+This is useful to online service providers, who want to restrict usage of such numbers
+on customer profiles, for security reasons (avoiding publicly available 2FA codes).
+
 ## Quickstart
 
 ```bash
 $ pip3 install disposable-phonebook
 $ dphonebook scrape
 ```
+
+See [docs](https://anroots.github.io/disposable-phonebook/) for further details.
+
+## Online API
+
+This project powers [disposable-phonebook.com](https://disposable-phonebook.com), where
+a list of disposable numbers is available over a free HTTP API.
 
 ## Development
 

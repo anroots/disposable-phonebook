@@ -1,10 +1,29 @@
 # Output writer - where to save results to?
 writer:
+  type: StdoutWriter
+
+  # JsonWriter - writes results into a json-encoded file
   #type: JsonWriter
   #args:
   #  # File path for the results
   #  file: scraped-numbers.json
-  type: StdoutWriter
+
+  # WebhookWriter - POST-s results to a webhook address
+  # type: WebhookWriter
+  # args:
+  #  # Full URL of the webhook where to POST to
+  #  url: http://localhost/api/v1/receive-numbers
+  #
+  #  # Authorization token to include in the 'Authorization:' header, if any
+  #  # Set to empty string to disable
+  #  authorization: "Bearer abcdefghij1234"
+  #
+  #  # How many numbers to POST with one request
+  #  # Smaller page sizes result in more HTTP requests, larger ones can time out
+  #  # 100 is a good middleground
+  #  page_size: 100
+
+
 
 enabled_providers:
   - www.receivesms.co

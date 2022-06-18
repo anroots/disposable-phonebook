@@ -8,6 +8,7 @@ import yaml
 from dphonebook.lib.progress import Progress
 from dphonebook.lib.writer.json_writer import JsonWriter
 from dphonebook.lib.writer.stdout_writer import StdoutWriter
+from dphonebook.lib.writer.webhook_writer import WebhookWriter
 from dphonebook.phonebook import Phonebook
 
 
@@ -40,14 +41,16 @@ def load_config(config_file: str, logger: logging.Logger):
         sys.exit(1)
 
 
-def writer_factory(config: dict):
+def writer_factory(config: dict, logger: logging.Logger):
     writer_type = config.get('writer', {}).get('type', 'StdoutWriter')
 
     # Temp, later: replace with more dynamic/intelligent loader
     if writer_type == 'StdoutWriter':
-        return StdoutWriter({})
+        return StdoutWriter({}, logger)
     if writer_type == 'JsonWriter':
-        return JsonWriter(config['writer']['args'])
+        return JsonWriter(config['writer']['args'], logger)
+    if writer_type == 'WebhookWriter':
+        return WebhookWriter(config['writer']['args'], logger)
     raise Exception('Unknown writer type')
 
 
@@ -57,7 +60,7 @@ def phonebook_factory(config_file) -> Phonebook:
     return Phonebook(
         logger=logger,
         config=config,
-        result_writer=writer_factory(config)
+        result_writer=writer_factory(config, logger)
     )
 
 

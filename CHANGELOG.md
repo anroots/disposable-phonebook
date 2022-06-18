@@ -1,5 +1,11 @@
 # Changelog
 
+## 2022-06-18 0.2.1
+
+### Added
+
+- Add WebhookWriter for sending results as HTTP POST requests
+
 ## 2022-06-18 0.2.0
 
 ### Added

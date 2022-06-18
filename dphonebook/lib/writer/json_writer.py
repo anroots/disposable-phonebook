@@ -1,4 +1,5 @@
 import json
+import logging
 
 from dphonebook.lib.phonenumber import PhoneNumberJsonEncoder
 from dphonebook.lib.writer.result_writer import ResultWriter
@@ -7,8 +8,8 @@ from dphonebook.lib.writer.result_writer import ResultWriter
 class JsonWriter(ResultWriter):
     output_file_path: str
 
-    def __init__(self, args: dict) -> None:
-        super().__init__(args)
+    def __init__(self, args: dict, logger: logging.Logger) -> None:
+        super().__init__(args, logger)
         self.output_file_path = self.args.get('file')
         if not self.output_file_path:
             raise Exception(f'Invalid filename "{self.output_file_path}" given for JsonWriter')
