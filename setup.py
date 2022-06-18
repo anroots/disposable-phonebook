@@ -27,7 +27,7 @@ setup(
     package_data={
         'dphonebook': ['disposable-phonebook.yml']
     },
-    version='0.2.0',
+    version='0.2.1',
     author='Ando Roots',
     author_email='ando@sqroot.eu',
     install_requires=[

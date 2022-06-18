@@ -41,6 +41,13 @@ dphonebook --help
 - Install [Editorconfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) extension
 - Install [pre-commit hooks](https://pre-commit.com/#install)
 
+### Releasing
+
+Releases are uploaded automaticaly to pypi on new Git tag creation.
+
+- Make sure [Changelog.md](Changelog.md) is updated
+- Update version number in [setup.py](setup.py)
+- `git tag 0.2.0`
 
 ## Contribution
 
