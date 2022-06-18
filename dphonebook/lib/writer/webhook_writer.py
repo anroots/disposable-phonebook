@@ -32,7 +32,7 @@ class RequestSender(threading.Thread):
                 self.work_queue.task_done()
                 return
             post_data = json.dumps({'numbers': work}, cls=PhoneNumberJsonEncoder)
-            response = self.session.post(self.webhook_url, data=post_data)
+            response = self.session.post(self.webhook_url, data=post_data, allow_redirects=False)
             self.logger.info(
                 'POST %d items to %s, response status code %d',
                 len(work),
