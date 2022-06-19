@@ -75,6 +75,10 @@ class ReceiveSmsOrg(NumberProvider):
             return None
 
         page = BeautifulSoup(response.content, features='html.parser')
+
+        # Some numbers might have 0 received SMS listed
+        if not page.find('div', class_='btn-time'):
+            return None
         last_message_time = page.find('div', class_='btn-time').contents[0]
 
         return self.fuzzy_time_to_datetime(last_message_time)
