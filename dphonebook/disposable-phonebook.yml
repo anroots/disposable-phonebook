@@ -27,5 +27,6 @@ writer:
 
 enabled_providers:
   - www.receivesms.co
-  - receive-smss.com
-  #- receive-sms-online.info
+  #- receive-smss.com
+  #- receive-sms-online.info # slow rate limits
+  # - www.receivesms.org

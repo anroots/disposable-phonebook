@@ -5,6 +5,7 @@
 ### Added
 
 - Add "url" field to output. Points at web page for reading SMS contents
+- Add `www.receivesms.org` provider
 
 ## 2022-06-18 0.2.1
 
