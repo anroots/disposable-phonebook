@@ -41,5 +41,6 @@ class RequestSenderTest(unittest.TestCase):
         number_json = str(self.number)
         self.mock_session.post.assert_called_with(
             'localhost',
-            data='{"numbers": [' + number_json + ', ' + number_json + ']}'
+            data='{"numbers": [' + number_json + ', ' + number_json + ']}',
+            allow_redirects=False
         )
