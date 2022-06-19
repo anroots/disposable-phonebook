@@ -28,6 +28,7 @@ class Phonebook:
         return session
 
     def load_providers(self):
+        loaded_providers = []
         for provider in number_provider_classes:
             if self.config.get('enabled_providers') and provider.domain() not in self.config.get('enabled_providers'):
                 continue
@@ -36,6 +37,8 @@ class Phonebook:
                 logger=self.logger,
                 session=self.session_factory()
             ))
+            loaded_providers.append(provider.domain())
+        self.logger.info(f'Loaded providers: {",".join(loaded_providers)}')
 
     def scrape(self):
         if not self.providers:

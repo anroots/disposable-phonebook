@@ -43,6 +43,7 @@ def load_config(config_file: str, logger: logging.Logger):
 
 def writer_factory(config: dict, logger: logging.Logger):
     writer_type = config.get('writer', {}).get('type', 'StdoutWriter')
+    logger.info('Using output writer %s', writer_type)
 
     # Temp, later: replace with more dynamic/intelligent loader
     if writer_type == 'StdoutWriter':
@@ -76,12 +77,14 @@ def list(config_file: str):
 @main.command()
 @click.option('--config-file', default=Path.joinpath(Path(__file__).parent.absolute(), 'disposable-phonebook.yml'), help='Config file location')
 def scrape(config_file: str):
+    click.echo('Initializing disposable-phonebook...')
     phonebook = phonebook_factory(config_file)
     phonebook.load_providers()
 
     progress = Progress(phonebook)
     progress.monitor()
 
+    click.echo('Starting scraping...')
     phonebook.scrape()
     progress.close()
 

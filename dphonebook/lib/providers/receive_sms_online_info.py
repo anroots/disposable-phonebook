@@ -76,7 +76,7 @@ class ReceiveSmsOnlineInfo(NumberProvider):
             ))
 
             # Server-side rate-limit on /script_a.php, need to slow down
-            self.logger.info(f'Sleeping {self.short_sleep_time} seconds between calls to {self.domain}...')
+            self.logger.info(f'Sleeping {self.short_sleep_time} seconds between calls to {self.domain()}...')
             time.sleep(self.short_sleep_time)
 
     def get_ajax_url(self, number: str, number_uri: str) -> Optional[str]:
