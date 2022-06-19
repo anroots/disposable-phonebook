@@ -71,17 +71,19 @@ class ReceiveSmsOnlineInfo(NumberProvider):
             callback(PhoneNumber(
                 number,
                 provider=self.domain(),
-                last_message=last_message_time
+                last_message=last_message_time,
+                url=self.number_to_url(f'/{number_uri}')
             ))
 
             # Server-side rate-limit on /script_a.php, need to slow down
+            self.logger.info(f'Sleeping {self.short_sleep_time} seconds between calls to {self.domain}...')
             time.sleep(self.short_sleep_time)
 
     def get_ajax_url(self, number: str, number_uri: str) -> Optional[str]:
         """Get URL of the "load number messages" AJAX API endpoint
         URL is embedded in Javascript on the page and is dynamic for each page load
         """
-        response = self.session.get(f'https://{self.domain()}/{number_uri}')
+        response = self.session.get(self.number_to_url(f'/{number_uri}'))
         if not response.ok:
             return None
         ajax = re.search(r'\/script_a.php\?key=(.+)&phone', response.text)

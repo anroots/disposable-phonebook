@@ -1,5 +1,11 @@
 # Changelog
 
+## 2022-06-19 0.2.2
+
+### Added
+
+- Add "url" field to output. Points at web page for reading SMS contents
+
 ## 2022-06-18 0.2.1
 
 ### Added

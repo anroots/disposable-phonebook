@@ -40,6 +40,14 @@ class NumberProvider:
     def last_message_time(self, number: str) -> Optional[datetime.datetime]:
         pass
 
+    def number_to_url(self, number_uri_fragment: str) -> str:
+        """Return full URL to the numbers frontend "read all messages" page
+
+        Args:
+            number_uri_fragment (str): Specific URI fragment associated with this number
+        """
+        return f'https://{self.domain()}{number_uri_fragment}'
+
     def scrape(self, callback: callable) -> List[PhoneNumber]:
         pass
 

@@ -69,7 +69,8 @@ class ReceiveSmsCo(NumberProvider):
             callback(PhoneNumber(
                 number,
                 provider=self.domain(),
-                last_message=last_message_time
+                last_message=last_message_time,
+                url=self.number_to_url(number_link)
             ))
 
     def last_message_time(self, number: str, link: str = None) -> Optional[datetime.datetime]:
@@ -79,7 +80,7 @@ class ReceiveSmsCo(NumberProvider):
             number (str): Phone number
             link (str, optional): URI fragment (/us/phone-number/3491/) to phone number details. Defaults to None.
         """
-        response = self.session.get(f'https://{self.domain()}{link}')
+        response = self.session.get(self.number_to_url(link))
 
         if not response.ok:
             raise SiteNotAvailable(response.content)

@@ -38,11 +38,15 @@ class ReceiveSmss(NumberProvider):
             callback(PhoneNumber(
                 number,
                 provider=self.domain(),
-                last_message=last_message_time
+                last_message=last_message_time,
+                url=self.number_to_url(number)
             ))
 
+    def number_to_url(self, number_uri_fragment: str) -> str:
+        return f'https://{self.domain()}/sms/{number_uri_fragment.strip("+")}/'
+
     def last_message_time(self, number: str) -> Optional[datetime.datetime]:
-        response = self.session.get(f'https://{self.domain()}/sms/{number.strip("+")}/')
+        response = self.session.get(self.number_to_url(number))
         if not response.ok:
             return None
 
