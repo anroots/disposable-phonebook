@@ -26,4 +26,4 @@ jobs:
       - name: Deploy docs
         run: |
           source venv/bin/activate
-          mkdocs gh-deploy
+          mkdocs gh-deploy --force
