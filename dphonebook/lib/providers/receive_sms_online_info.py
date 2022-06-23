@@ -24,7 +24,7 @@ class ReceiveSmsOnlineInfo(NumberProvider):
     def domain() -> str:
         return 'receive-sms-online.info'
 
-    def scrape(self, callback: callable) -> List[PhoneNumber]:
+    def run(self) -> List[PhoneNumber]:
 
         response = self.session.get(f'https://{self.domain()}/')
 
@@ -38,6 +38,9 @@ class ReceiveSmsOnlineInfo(NumberProvider):
 
         for number_cell in number_cells:
             self.progress_current += 1
+
+            if self.stopped():
+                return
 
             number_link = number_cell.find('a')
             number = number_link.contents[1].strip()
@@ -68,7 +71,7 @@ class ReceiveSmsOnlineInfo(NumberProvider):
                 self.logger.info('%s number %s is not active, skipping', self.domain(), number)
                 continue
 
-            callback(PhoneNumber(
+            self.writer.append(PhoneNumber(
                 number,
                 provider=self.domain(),
                 last_message=last_message_time,

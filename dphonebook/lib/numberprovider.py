@@ -1,27 +1,48 @@
 import datetime
 import re
 from logging import Logger
+from threading import Event
+from threading import Thread
 from typing import List
 from typing import Optional
 
 import requests
 
 from dphonebook.lib.phonenumber import PhoneNumber
+from dphonebook.lib.writer.result_writer import ResultWriter
 
 
-class NumberProvider:
+class NumberProvider(Thread):
 
     # For progress % reporting
     progress_total: int = 0
     progress_current: int = 0
 
-    def __init__(self, logger: Logger, session: requests.Session) -> None:
-        self.logger = logger
+    # Set when thread is requested to stop scraping and exit
+    _stop_event: Event
+
+    def __init__(
+        self, group=None, target=None, name=None,
+        logger: Logger = None, session: requests.Session = None,
+        writer: ResultWriter = None,
+        args=(), kwargs=None, *, daemon=None
+    ):
         self.session = session
+        self.logger = logger
+        self.writer = writer
+        self._stop_event = Event()
+        super().__init__(group=group, target=target,
+                         name=name, args=args, kwargs=kwargs, daemon=daemon)
 
     @staticmethod
     def domain() -> str:
         pass
+
+    def stop(self):
+        self._stop_event.set()
+
+    def stopped(self):
+        return self._stop_event.is_set()
 
     def progress(self) -> float:
         if not self.progress_total or not self.progress_current:
@@ -48,7 +69,7 @@ class NumberProvider:
         """
         return f'https://{self.domain()}{number_uri_fragment}'
 
-    def scrape(self, callback: callable) -> List[PhoneNumber]:
+    def run(self) -> List[PhoneNumber]:
         pass
 
     def fuzzy_time_to_datetime(self, fuzzy_time: str) -> Optional[datetime.datetime]:

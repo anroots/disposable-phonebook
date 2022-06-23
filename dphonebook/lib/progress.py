@@ -19,7 +19,10 @@ class Progress:
         total = 0
 
         for provider in self.phonebook.providers:
-            total += provider.progress()
+            if provider.stopped():
+                total += 100
+            else:
+                total += provider.progress()
         return round(total / self.providers_count, 2)
 
     def close(self):

@@ -39,7 +39,7 @@ class ReceiveSmsCo(NumberProvider):
                 continue
             return link.attrs['href']
 
-    def scrape(self, callback: callable) -> List[PhoneNumber]:
+    def run(self) -> List[PhoneNumber]:
 
         response = self.session.get(f'https://{self.domain()}/active-numbers/')
 
@@ -54,6 +54,9 @@ class ReceiveSmsCo(NumberProvider):
         for number_row in number_rows:
             self.progress_current += 1
 
+            if self.stopped():
+                return
+
             # Skip header row in table
             if not self.is_number_row(number_row):
                 continue
@@ -66,7 +69,7 @@ class ReceiveSmsCo(NumberProvider):
                 self.logger.info(
                     '%s number %s is not active, skipping', self.domain(), number)
                 continue
-            callback(PhoneNumber(
+            self.writer.append(PhoneNumber(
                 number,
                 provider=self.domain(),
                 last_message=last_message_time,

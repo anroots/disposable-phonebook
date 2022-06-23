@@ -15,7 +15,7 @@ class ReceiveSmsOrg(NumberProvider):
     def domain() -> str:
         return 'www.receivesms.org'
 
-    def scrape(self, callback: callable) -> List[PhoneNumber]:
+    def run(self) -> List[PhoneNumber]:
 
         # Front page: links to country-specific sub-pages
         response = self.session.get(f'https://{self.domain()}/')
@@ -48,15 +48,18 @@ class ReceiveSmsOrg(NumberProvider):
             for number_row in number_rows:
                 self.progress_current += 1
 
+                if self.stopped():
+                    return
+
                 number_link_element = number_row.find_all('a')[1]
                 number_link = number_link_element.attrs['href']
                 number = number_link_element.contents[0]
 
                 last_message_time = self.last_message_time(number_link)
                 if not self.verify_number_active(number, last_message_time):
-                    self.logger.info(f'{self.domain} number %s is not active, skipping', number)
+                    self.logger.info(f'{self.domain()} number %s is not active, skipping', number)
                     continue
-                callback(PhoneNumber(
+                self.writer.append(PhoneNumber(
                     number,
                     provider=self.domain(),
                     last_message=last_message_time,

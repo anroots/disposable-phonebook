@@ -15,7 +15,7 @@ class ReceiveSmss(NumberProvider):
     def domain() -> str:
         return 'receive-smss.com'
 
-    def scrape(self, callback: callable) -> List[PhoneNumber]:
+    def run(self) -> List[PhoneNumber]:
 
         response = self.session.get(f'https://{self.domain()}/')
 
@@ -29,13 +29,15 @@ class ReceiveSmss(NumberProvider):
 
         for number_element in number_links:
             self.progress_current += 1
+            if self.stopped():
+                return
 
             number = number_element.contents.pop()
             last_message_time = self.last_message_time(number)
             if not self.verify_number_active(number, last_message_time):
                 self.logger.info('ReceiveSmss number %s is not active, skipping', number)
                 continue
-            callback(PhoneNumber(
+            self.writer.append(PhoneNumber(
                 number,
                 provider=self.domain(),
                 last_message=last_message_time,
