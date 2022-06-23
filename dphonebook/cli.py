@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 import click
+import pkg_resources
 import yaml
 
 from dphonebook.lib.progress import Progress
@@ -81,10 +82,12 @@ def scrape(config_file: str):
     phonebook = phonebook_factory(config_file)
     phonebook.load_providers()
 
+    lib_version = pkg_resources.get_distribution('disposable-phonebook').version
+    click.echo(f'Starting disposable-phonebook/{lib_version} scrape...')
+
     progress = Progress(phonebook)
     progress.monitor()
 
-    click.echo('Starting scraping...')
     phonebook.scrape()
     progress.close()
 
