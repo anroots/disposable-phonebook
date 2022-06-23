@@ -27,7 +27,8 @@ writer:
 
 enabled_providers:
   #- dummy.example.com
-  - www.receivesms.co
+  #- www.receivesms.co
   #- receive-smss.com
   #- receive-sms-online.info # slow rate limits
   #- www.receivesms.org
+  - sms-online.co

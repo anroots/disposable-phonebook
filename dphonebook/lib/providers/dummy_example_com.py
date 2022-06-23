@@ -31,7 +31,8 @@ class DummyExampleCom(NumberProvider):
             self.writer.append(PhoneNumber(
                 number,
                 provider=self.domain(),
-                last_message=last_message_time
+                last_message=last_message_time,
+                url='http://localhost'
             ))
 
             # Simulate network lag for example purposes

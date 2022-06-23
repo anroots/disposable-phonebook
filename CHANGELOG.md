@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   gracefully exits. This prevents one long-running or hung thread from causing
   and infinite block on whole execution. `Provider` classes need to check for
   `self.stopped() -> bool` during execution cycles.
+- Add provider for `sms-online.co`
 
 ### Changed
 
