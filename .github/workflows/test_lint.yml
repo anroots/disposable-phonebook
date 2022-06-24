@@ -2,6 +2,23 @@ name: Run unit tests and static linting
 on: [push, pull_request]
 
 jobs:
+  static_lint:
+    name: Run linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run static checks
+        run: pre-commit
+
   unittests:
     name: Run unit tests
     runs-on: ubuntu-latest
