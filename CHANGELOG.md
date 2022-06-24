@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2022-06-24
+
+### Fixed
+
+- Include missing `tqdm` dependency on package install
+- Include user-agent data files on package install
+
 ## [0.4.0] - 2022-06-24
 
 ### Added

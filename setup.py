@@ -27,7 +27,7 @@ setup(
     package_data={
         'dphonebook': ['disposable-phonebook.yml', 'vendor/user-agents/*']
     },
-    version='0.4.0',
+    version='0.4.1',
     author='Ando Roots',
     author_email='ando@sqroot.eu',
     install_requires=[
