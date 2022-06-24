@@ -53,6 +53,12 @@ Releases are uploaded automaticaly to pypi on new Git tag creation.
 
 Want to add or fix something? Send a pull request.
 
+This project uses (with thanks):
+
+- [python-phonenumbers](https://github.com/daviddrysdale/python-phonenumbers) for phone number
+  formatting and metadata
+- [top-user-agents](https://github.com/Kikobeats/top-user-agents) for UA list
+
 ## License
 
 Apache2 license (see: [LICENSE](LICENSE))
