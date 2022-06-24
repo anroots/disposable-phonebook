@@ -17,7 +17,7 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Run static checks
-        run: pre-commit
+        run: pre-commit run --all-files
 
   unittests:
     name: Run unit tests
