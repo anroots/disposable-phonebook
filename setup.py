@@ -36,7 +36,8 @@ setup(
         'setuptools',
         'beautifulsoup4',
         'phonenumbers',
-        'pyyaml'
+        'pyyaml',
+        'tqdm'
     ],
     entry_points={
         'console_scripts': [
