@@ -25,7 +25,7 @@ setup(
     license='Apache 2.0',
     packages=find_packages(exclude=['tests*']),
     package_data={
-        'dphonebook': ['disposable-phonebook.yml']
+        'dphonebook': ['disposable-phonebook.yml', 'vendor/user-agents/*']
     },
     version='0.4.0',
     author='Ando Roots',
