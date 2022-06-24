@@ -27,6 +27,9 @@ class DummyExampleCom(NumberProvider):
                 return
 
             last_message_time = self.last_message_time(number)
+            if not self.verify_number_active(number, last_message_time):
+                self.logger.info('ReceiveSmss number %s is not active, skipping', number)
+                continue
 
             self.writer.append(PhoneNumber(
                 number,

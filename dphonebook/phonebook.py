@@ -38,6 +38,10 @@ class Phonebook:
                 writer=self.result_writer
             ))
             loaded_providers.append(provider.domain())
+
+        if not loaded_providers:
+            raise RuntimeError('No providers loaded, please check the config file')
+
         self.logger.info(f'Loaded providers: {",".join(loaded_providers)}')
 
     def scrape(self):

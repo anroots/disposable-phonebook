@@ -31,4 +31,5 @@ enabled_providers:
   #- receive-smss.com
   #- receive-sms-online.info # slow rate limits
   #- www.receivesms.org
-  - sms-online.co
+  #- sms-online.co
+  - receive-sms-free.cc

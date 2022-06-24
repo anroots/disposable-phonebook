@@ -33,7 +33,7 @@ class PhoneNumber():
 
         phonenumber_obj = phonenumbers.parse(phonenumber)
         self.phonenumber = phonenumbers.format_number(phonenumber_obj, phonenumbers.PhoneNumberFormat.E164)
-        self.area = geocoder.description_for_number(phonenumber_obj, 'en')
+        self.area = geocoder.description_for_number(phonenumber_obj, 'en') or None
         self.provider = provider
         self.last_checked = last_checked or datetime.datetime.now()
         self.last_message = last_message

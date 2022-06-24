@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add provider for `receive-sms-free.cc`
+
 ## [0.3.0] - 2022-06-23
 
 ### Added
