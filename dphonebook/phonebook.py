@@ -1,9 +1,8 @@
 from logging import Logger
 
-import requests
-
 from dphonebook.lib.numberprovider import NumberProvider
 from dphonebook.lib.providers import number_provider_classes
+from dphonebook.lib.session import Session
 from dphonebook.lib.writer.result_writer import ResultWriter
 
 
@@ -16,24 +15,16 @@ class Phonebook:
         self.result_writer = result_writer
         self.config = config
 
-    def session_factory(self) -> requests.Session:
-        session = requests.Session()
-
-        # TODO: dynamic
-        session.headers.update(
-            {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15'})
-
-        return session
-
     def load_providers(self):
         loaded_providers = []
         for provider in number_provider_classes:
             if self.config.get('enabled_providers') and provider.domain() not in self.config.get('enabled_providers'):
                 continue
 
+            session = Session()
             self.providers.append(provider(
                 logger=self.logger,
-                session=self.session_factory(),
+                session=session.make(),
                 name=provider.domain(),
                 writer=self.result_writer
             ))

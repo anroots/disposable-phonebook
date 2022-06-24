@@ -86,7 +86,7 @@ class ReceiveSmsCo(NumberProvider):
         response = self.session.get(self.number_to_url(link))
 
         if not response.ok:
-            raise SiteNotAvailable(response.content)
+            return None
 
         page = BeautifulSoup(response.content, features='html.parser')
 

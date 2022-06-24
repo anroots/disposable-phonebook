@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add provider for `receive-sms-free.cc`
+- Use random user agent per each new `requests.Session`
 
 ## [0.3.0] - 2022-06-23
 
