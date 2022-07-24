@@ -73,6 +73,13 @@ class NumberProvider(Thread):
         pass
 
     def fuzzy_time_to_datetime(self, fuzzy_time: str) -> Optional[datetime.datetime]:
+
+        if fuzzy_time == 'an hour ago':
+            return datetime.datetime.now() - datetime.timedelta(hours=1)
+
+        if fuzzy_time == 'one minute ago':
+            return datetime.datetime.now() - datetime.timedelta(minutes=1)
+
         time_components = re.search(r'(\d{1,2}) (sec|second|seconds|min|minute|hour|h|day|month)s? ago', fuzzy_time)
         if not time_components:
             return None

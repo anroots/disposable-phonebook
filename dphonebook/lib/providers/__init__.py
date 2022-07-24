@@ -5,6 +5,7 @@ from dphonebook.lib.providers.receive_sms_online_info import ReceiveSmsOnlineInf
 from dphonebook.lib.providers.receive_sms_org import ReceiveSmsOrg
 from dphonebook.lib.providers.receive_smss import ReceiveSmss
 from dphonebook.lib.providers.sms_online_co import SmsOnlineCo
+from dphonebook.lib.providers.sms_receive_net import SmsReceiveNet
 
 
 number_provider_classes = [
@@ -14,5 +15,6 @@ number_provider_classes = [
     ReceiveSmsOnlineInfo,
     ReceiveSmsOrg,
     SmsOnlineCo,
-    ReceiveSmsFreeCc
+    ReceiveSmsFreeCc,
+    SmsReceiveNet
 ]
