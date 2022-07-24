@@ -4,6 +4,7 @@ from dphonebook.lib.providers.receive_sms_free_cc import ReceiveSmsFreeCc
 from dphonebook.lib.providers.receive_sms_online_info import ReceiveSmsOnlineInfo
 from dphonebook.lib.providers.receive_sms_org import ReceiveSmsOrg
 from dphonebook.lib.providers.receive_smss import ReceiveSmss
+from dphonebook.lib.providers.seven_sim_net import SevenSimNet
 from dphonebook.lib.providers.sms_online_co import SmsOnlineCo
 from dphonebook.lib.providers.sms_receive_net import SmsReceiveNet
 
@@ -16,5 +17,6 @@ number_provider_classes = [
     ReceiveSmsOrg,
     SmsOnlineCo,
     ReceiveSmsFreeCc,
-    SmsReceiveNet
+    SmsReceiveNet,
+    SevenSimNet
 ]

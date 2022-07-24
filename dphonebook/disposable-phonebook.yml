@@ -33,4 +33,5 @@ enabled_providers:
   #- www.receivesms.org
   #- sms-online.co
   #- receive-sms-free.cc
-  - sms-receive.net
+  #- sms-receive.net
+  #- 7sim.net

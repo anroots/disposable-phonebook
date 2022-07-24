@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `sms-receive.net` provider
+- Add `7sim.net` provider
 
 ## [0.4.1] - 2022-06-24
 
