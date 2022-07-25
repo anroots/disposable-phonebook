@@ -1,4 +1,5 @@
 from dphonebook.lib.providers.dummy_example_com import DummyExampleCom
+from dphonebook.lib.providers.free_receive_sms_com import FreeReceiveSmsCom
 from dphonebook.lib.providers.receive_sms_co import ReceiveSmsCo
 from dphonebook.lib.providers.receive_sms_free_cc import ReceiveSmsFreeCc
 from dphonebook.lib.providers.receive_sms_online_info import ReceiveSmsOnlineInfo
@@ -18,5 +19,6 @@ number_provider_classes = [
     SmsOnlineCo,
     ReceiveSmsFreeCc,
     SmsReceiveNet,
-    SevenSimNet
+    SevenSimNet,
+    FreeReceiveSmsCom
 ]

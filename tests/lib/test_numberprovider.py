@@ -15,11 +15,14 @@ class NumberProviderTest(unittest.TestCase):
             ('25 minutes ago', now - timedelta(minutes=25)),
             ('1 hour ago', now - timedelta(hours=1)),
             ('an hour ago', now - timedelta(hours=1)),
-            ('one minute ago', now - timedelta(minutes=1))
+            ('one minute ago', now - timedelta(minutes=1)),
+            ('1hours ago', now - timedelta(hours=1))
         ]
 
         for conversion in expected_conversions:
+            converted_time = numberprovider.fuzzy_time_to_datetime(conversion[0])
+            self.assertIsNotNone(converted_time)
             self.assertEqual(
-                int(numberprovider.fuzzy_time_to_datetime(conversion[0]).timestamp()),
+                int(converted_time.timestamp()),
                 int(conversion[1].timestamp())
             )

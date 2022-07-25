@@ -13,7 +13,3 @@ enabled_providers:
   - sms-online.co
   - receive-sms-free.cc
   - sms-receive.net
-  - 7sim.net
-
-  # Can not enable during CI - too aggressive rate limits
-  #- receive-sms-online.info
