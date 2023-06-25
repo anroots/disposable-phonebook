@@ -21,11 +21,6 @@ $ dphonebook scrape
 
 See [docs](https://anroots.github.io/disposable-phonebook/) for further details.
 
-## Online API
-
-This project powers [disposable-phonebook.com](https://disposable-phonebook.com), where
-a list of disposable numbers is available over a free HTTP API.
-
 ## Development
 
 Requires Python 3.10
